@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:pashu_mitra/core/constants/app_constants.dart';
 
 class FarmProfilePage extends StatefulWidget {
   const FarmProfilePage({super.key});
@@ -12,6 +14,7 @@ class _FarmProfilePageState extends State<FarmProfilePage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController farmerNameController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
+
   String? selectedFarmType;
   String? selectedHousingType;
   bool _isSaving = false;
@@ -21,8 +24,14 @@ class _FarmProfilePageState extends State<FarmProfilePage> {
 
     setState(() => _isSaving = true);
 
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) return;
+
     try {
-      await FirebaseFirestore.instance.collection('farm_profiles').add({
+      await FirebaseFirestore.instance
+          .collection(AppConstants.farmProfilesCollection)
+          .doc(user.uid) // save with uid so the profile check can find it
+          .set({
         'farmerName': farmerNameController.text.trim(),
         'farmType': selectedFarmType ?? '',
         'location': locationController.text.trim(),
@@ -32,33 +41,19 @@ class _FarmProfilePageState extends State<FarmProfilePage> {
 
       if (!mounted) return;
 
-      // Show confirmation message
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('✅ Farm profile saved successfully!'),
-          backgroundColor: Colors.green,
-        ),
+        const SnackBar(content: Text('✅ Farm profile saved successfully!'), backgroundColor: Colors.green),
       );
 
-      // Wait a bit so snackbar is visible
-      await Future.delayed(const Duration(milliseconds: 700));
+      await Future.delayed(const Duration(milliseconds: 500));
 
-      // ✅ Use addPostFrameCallback for safe navigation
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted) {
-          Navigator.of(context).pushNamedAndRemoveUntil(
-            '/home',
-            (route) => false,
-          );
-        }
-      });
+      if (mounted) {
+        Navigator.of(context).pushNamedAndRemoveUntil(AppConstants.routeHome, (route) => false);
+      }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('❌ Error saving: $e'),
-            backgroundColor: Colors.redAccent,
-          ),
+          SnackBar(content: Text('❌ Error saving: $e'), backgroundColor: Colors.redAccent),
         );
       }
     } finally {
@@ -81,8 +76,7 @@ class _FarmProfilePageState extends State<FarmProfilePage> {
                 _buildLabel('Farmer Name'),
                 TextFormField(
                   controller: farmerNameController,
-                  validator: (v) =>
-                      v!.trim().isEmpty ? 'Enter farmer name' : null,
+                  validator: (v) => v!.trim().isEmpty ? 'Enter farmer name' : null,
                   decoration: _inputDecoration('Enter Farmer Name'),
                 ),
                 const SizedBox(height: 16),
@@ -102,8 +96,7 @@ class _FarmProfilePageState extends State<FarmProfilePage> {
                 _buildLabel('Location'),
                 TextFormField(
                   controller: locationController,
-                  validator: (v) =>
-                      v!.trim().isEmpty ? 'Enter location' : null,
+                  validator: (v) => v!.trim().isEmpty ? 'Enter location' : null,
                   decoration: _inputDecoration('Enter Farm Location'),
                 ),
                 const SizedBox(height: 16),
@@ -124,29 +117,8 @@ class _FarmProfilePageState extends State<FarmProfilePage> {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: _isSaving ? null : _saveFarmProfile,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    child: _isSaving
-                        ? const SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              color: Colors.white,
-                            ),
-                          )
-                        : const Text(
-                            'Save & Continue',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
-                          ),
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.green, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+                    child: _isSaving ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white)) : const Text('Save & Continue', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
                   ),
                 ),
               ],
@@ -157,20 +129,7 @@ class _FarmProfilePageState extends State<FarmProfilePage> {
     );
   }
 
-  Widget _buildLabel(String text) => Padding(
-        padding: const EdgeInsets.only(bottom: 6),
-        child: Text(
-          text,
-          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
-        ),
-      );
+  Widget _buildLabel(String text) => Padding(padding: const EdgeInsets.only(bottom: 6), child: Text(text, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16)));
 
-  InputDecoration _inputDecoration(String hint) => InputDecoration(
-        hintText: hint,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-      );
+  InputDecoration _inputDecoration(String hint) => InputDecoration(hintText: hint, border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)), contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14));
 }

@@ -4,6 +4,7 @@ import 'package:pashu_mitra/presentation/pages/alerts/alerts_page.dart';
 import 'package:pashu_mitra/presentation/pages/compliance/compliance_page.dart';
 import 'package:pashu_mitra/presentation/pages/reports/reports_page.dart';
 import 'package:pashu_mitra/presentation/pages/training/training_page.dart';
+import 'package:pashu_mitra/presentation/providers/auth_provider.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -33,10 +34,19 @@ class _HomePageState extends ConsumerState<HomePage> {
         type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.notification_important), label: 'Alert'),
-          BottomNavigationBarItem(icon: Icon(Icons.shield), label: 'Compliance'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.notification_important),
+            label: 'Alert',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shield),
+            label: 'Compliance',
+          ),
           BottomNavigationBarItem(icon: Icon(Icons.school), label: 'Training'),
-          BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: 'Reports'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.bar_chart),
+            label: 'Reports',
+          ),
         ],
       ),
     );
@@ -46,11 +56,11 @@ class _HomePageState extends ConsumerState<HomePage> {
 // -------------------------
 // 🏠 HOME CONTENT
 // -------------------------
-class HomeContent extends StatelessWidget {
+class HomeContent extends ConsumerWidget {
   const HomeContent({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(18),
       child: Column(
@@ -62,6 +72,7 @@ class HomeContent extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              // Left Logo & Name
               Row(
                 children: const [
                   CircleAvatar(
@@ -71,19 +82,27 @@ class HomeContent extends StatelessWidget {
                   SizedBox(width: 8),
                   Text(
                     "PashuMitra",
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.notifications_none),
+
+              // Right side: Notification + Logout
+              Row(
+                children: [
+                  IconButton(
+                    tooltip: "Logout",
+                    onPressed: () async {
+                      await ref.read(authRepositoryProvider).logout();
+                      // No navigation needed — RootRouter will redirect to LoginPage automatically
+                    },
+                    icon: const Icon(Icons.logout, color: Colors.red),
+                  ),
+                ],
               ),
             ],
           ),
+
           const SizedBox(height: 20),
 
           // --------------------
@@ -113,10 +132,7 @@ class HomeContent extends StatelessWidget {
                 ),
                 const Text(
                   "Excellent",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                  ),
+                  style: TextStyle(color: Colors.white, fontSize: 18),
                 ),
                 const SizedBox(height: 12),
                 ClipRRect(
@@ -131,6 +147,7 @@ class HomeContent extends StatelessWidget {
               ],
             ),
           ),
+
           const SizedBox(height: 25),
 
           // --------------------
@@ -138,10 +155,7 @@ class HomeContent extends StatelessWidget {
           // --------------------
           const Text(
             "Alerts",
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 10),
 
@@ -161,6 +175,7 @@ class HomeContent extends StatelessWidget {
             description:
                 "Swine Flu vaccination due for pigs in Barn 3. Schedule within the next 7 days.",
           ),
+
           const SizedBox(height: 25),
 
           // --------------------
@@ -168,10 +183,7 @@ class HomeContent extends StatelessWidget {
           // --------------------
           const Text(
             "Quick Actions",
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 10),
 
@@ -182,10 +194,18 @@ class HomeContent extends StatelessWidget {
             crossAxisSpacing: 12,
             mainAxisSpacing: 12,
             children: [
-              _quickActionCard(Icons.science, "Risk Assessment", Colors.green.shade50),
+              _quickActionCard(
+                Icons.science,
+                "Risk Assessment",
+                Colors.green.shade50,
+              ),
               _quickActionCard(Icons.school, "Training", Colors.green.shade50),
               _quickActionCard(Icons.rule, "Compliance", Colors.green.shade50),
-              _quickActionCard(Icons.bar_chart, "Reports", Colors.green.shade50),
+              _quickActionCard(
+                Icons.bar_chart,
+                "Reports",
+                Colors.green.shade50,
+              ),
             ],
           ),
         ],
@@ -221,11 +241,18 @@ class HomeContent extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title,
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
                 const SizedBox(height: 4),
-                Text(description,
-                    style: const TextStyle(color: Colors.black54, fontSize: 14)),
+                Text(
+                  description,
+                  style: const TextStyle(color: Colors.black54, fontSize: 14),
+                ),
               ],
             ),
           ),
