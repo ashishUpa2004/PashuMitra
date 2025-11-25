@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "456307542831",
+    "project_id": "pashumitra-39416",
+    "storage_bucket": "pashumitra-39416.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:456307542831:android:5a4ad83125ff65eea5afda",
+        "android_client_info": {
+          "package_name": "com.example.pashu_mitra"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "456307542831-lsibapib3huosa08vpnu6bu2o2vimfjm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBu-kjWMY1dTkPkFndBVddybP2kDfuxdJA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "456307542831-lsibapib3huosa08vpnu6bu2o2vimfjm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
