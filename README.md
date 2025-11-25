@@ -34,41 +34,50 @@ Below are the main screens available in the app along with screenshots. (Files i
 
 1. **Login / Welcome**
    - Prominent welcome message, email & password fields, "Forgot Password?", primary Login button and Google sign-in option. Also link to Register.
-   - Screenshot: <img src="C:\Users\Ashish Upadhyay\Pictures\Screenshots" width="300"/>
+   - Screenshot: <img width="421" height="913" alt="Screenshot 2025-11-25 140304" src="https://github.com/user-attachments/assets/13d71e94-ab21-4952-9131-ac9d7ff62255" />
+
 
 2. **Register / Sign Up**
    - Simplified account creation with email and password fields and a large Sign Up button.
-   - Screenshot: `/mnt/data/Screenshot 2025-11-25 140456.png`
+   - Screenshot: <img width="420" height="908" alt="Screenshot 2025-11-25 140456" src="https://github.com/user-attachments/assets/5b46577a-c439-4938-a9fa-aa416e35c352" />
+
 
 3. **Home / Dashboard**
    - Shows the farm name, biosecurity score card, brief alerts preview and quick action tiles (Risk Assessment, Training etc.).
-   - Screenshot: `/mnt/data/Screenshot 2025-11-25 140548.png`
-
+   - Screenshot: <img width="420" height="910" alt="Screenshot 2025-11-25 140548" src="https://github.com/user-attachments/assets/b0aac849-20c3-46c6-9902-5aae04ca4a6f" />
+   
 4. **Alerts List**
+
    - Dedicated alerts screen listing recent alerts with clear categorization and descriptions (e.g., Disease Outbreak, Vaccination Reminder).
-   - Screenshot: `/mnt/data/Screenshot 2025-11-25 140556.png`
+   - Screenshot: <img width="419" height="903" alt="Screenshot 2025-11-25 140556" src="https://github.com/user-attachments/assets/dd7f1abd-a273-4999-9424-782d25e78b6b" />
+
 
 5. **Compliance Tracker**
    - Progress bar and checklist of biosecurity tasks with states (Completed, Pending). Each checklist item can be checked off.
-   - Screenshot: `/mnt/data/Screenshot 2025-11-25 140603.png`
+   - Screenshot: <img width="418" height="904" alt="Screenshot 2025-11-25 140603" src="https://github.com/user-attachments/assets/76377b0e-c86d-4499-8c16-89e77e92434a" />
 
 6. **Training Hub**
    - Categories (Waste Disposal, Housing, Feeding) and a scrollable list of training modules and short course descriptions.
-   - Screenshot: `/mnt/data/Screenshot 2025-11-25 140610.png`
+   - Screenshot: <img width="420" height="907" alt="Screenshot 2025-11-25 140610" src="https://github.com/user-attachments/assets/c443307e-2daf-45f3-9f5a-0e655daf97cb" />
 
 7. **Reports**
    - Charts and performance indicators visualizing farm health, compliance metrics and trend numbers.
-   - Screenshot: `/mnt/data/Screenshot 2025-11-25 140616.png`
+   - Screenshot: <img width="425" height="911" alt="Screenshot 2025-11-25 140616" src="https://github.com/user-attachments/assets/e9e11cf3-912c-476a-8b98-442e230352a2" />
 
 ---
 
-## Tech Stack (suggested / implemented)
+## 🛠 Tech Stack
 
-- **Frontend**: Flutter (mobile UI), or cross-platform React Native depending on project choices.
-- **Backend**: Firebase (Authentication, Firestore database, Cloud Storage for documents) or REST API with Node.js/Express.
-- **Authentication**: Email/password and OAuth (Google) flows.
-- **Storage**: Cloud file storage for uploaded vaccination records and farm documents.
-- **Analytics**: Simple charts (e.g., using a mobile charting library) for reports.
+<p align="left">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" width="50" height="50"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg" width="50" height="50"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" width="50" height="50"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" width="50" height="50"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" width="50" height="50"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" width="50" height="50"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" width="50" height="50"/>
+</p>
+
 
 > Note: The repository UI is implemented with a consistent design language to allow easy connection to cloud services (Firebase or custom backend).
 
@@ -100,6 +109,7 @@ Contributions are welcome. Suggested workflow:
 2. Create a feature branch: `git checkout -b feature/your-feature`.
 3. Implement changes and add tests if applicable.
 4. Create a pull request with a clear description of changes.
+
 
 
 
